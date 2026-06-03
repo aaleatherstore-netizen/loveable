@@ -24,7 +24,6 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1709795070024305&ev=PageView&noscript=1"/></noscript>
-
 <style>
   :root{
     --bg:#000; --bg-2:#0a0f0c; --card:#0d1410; --card-2:#111814;
@@ -104,14 +103,37 @@ src="https://www.facebook.com/tr?id=1709795070024305&ev=PageView&noscript=1"/></
   .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   @media(max-width:880px){.projects{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:560px){.projects{grid-template-columns:1fr}}
-  .proj{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;transition:all .3s;position:relative;overflow:hidden}
+  .proj{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;transition:all .3s;position:relative;overflow:hidden;display:flex;flex-direction:column}
   .proj:hover{transform:translateY(-4px);border-color:var(--green)}
-  .proj-tag{display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(34,197,94,.15);color:var(--green-glow);font-size:11px;font-weight:600;margin-bottom:14px;letter-spacing:.05em;text-transform:uppercase}
-  .proj-ico{font-size:48px;display:block;text-align:center;padding:20px 0;background:radial-gradient(circle,rgba(34,197,94,.12),transparent 70%);border-radius:12px;margin-bottom:16px}
+  .proj-tag{display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(34,197,94,.15);color:var(--green-glow);font-size:11px;font-weight:600;margin-bottom:14px;letter-spacing:.05em;text-transform:uppercase;align-self:flex-start}
+  .proj-img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:12px;margin-bottom:16px;background:#0a1f12 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><circle cx='20' cy='20' r='8' fill='%2316a34a' opacity='.3'/></svg>") center/40px no-repeat;display:block}
   .proj h3{font-size:17px;margin-bottom:8px}
-  .proj p{color:var(--muted-2);font-size:13px;margin-bottom:14px}
+  .proj p{color:var(--muted-2);font-size:13px;margin-bottom:14px;flex:1}
   .proj-meta{display:flex;gap:14px;font-size:11px;color:var(--muted);padding-top:14px;border-top:1px solid var(--line)}
   .proj-meta b{color:var(--green-glow)}
+
+  /* RESULTS GALLERY */
+  .results{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:880px){.results{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.results{grid-template-columns:1fr}}
+  .result{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--card);transition:all .3s;cursor:pointer}
+  .result:hover{transform:translateY(-4px);border-color:var(--green);box-shadow:0 18px 40px -20px rgba(34,197,94,.4)}
+  .result img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;background:#0a1f12}
+  .result-badge{position:absolute;top:12px;left:12px;background:var(--green);color:#000;padding:5px 12px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.05em}
+  .result-cap{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.9));color:#fff;font-size:13px;font-weight:600}
+  .result-cap b{color:var(--green-glow);display:block;font-size:18px;margin-bottom:2px}
+
+  /* OFFER TIMER POPUP */
+  .offer-pop{position:fixed;right:20px;bottom:90px;width:300px;background:linear-gradient(160deg,#0f2a18,#000);border:1.5px solid var(--green);border-radius:16px;padding:18px;box-shadow:0 20px 50px -15px rgba(34,197,94,.5);z-index:998;transform:translateY(20px) scale(.95);opacity:0;pointer-events:none;transition:all .4s cubic-bezier(.2,.8,.2,1)}
+  .offer-pop.show{transform:translateY(0) scale(1);opacity:1;pointer-events:auto}
+  .offer-pop .x{position:absolute;top:8px;right:10px;background:none;border:0;color:var(--muted);font-size:20px;cursor:pointer;line-height:1}
+  .offer-pop h4{font-size:15px;margin-bottom:4px;color:#fff}
+  .offer-pop p{font-size:12px;color:var(--muted-2);margin-bottom:12px}
+  .offer-clock{display:flex;gap:6px;margin-bottom:12px;justify-content:center}
+  .offer-clock div{background:#000;border:1px solid var(--green);border-radius:8px;padding:8px 10px;min-width:54px;text-align:center;font-family:'Space Grotesk';font-weight:700;font-size:20px;color:var(--green-glow)}
+  .offer-clock div small{display:block;font-size:9px;color:var(--muted);letter-spacing:.1em;font-weight:500;margin-top:2px}
+  .offer-pop .btn{width:100%;justify-content:center;padding:10px;font-size:13px}
+  @media(max-width:560px){.offer-pop{right:10px;left:10px;width:auto;bottom:80px}}
 
   /* PRICING */
   .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
@@ -166,6 +188,16 @@ src="https://www.facebook.com/tr?id=1709795070024305&ev=PageView&noscript=1"/></
   .form-msg{margin-top:14px;padding:12px;border-radius:8px;font-size:13px;text-align:center;display:none}
   .form-msg.ok{display:block;background:rgba(34,197,94,.15);color:var(--green-glow);border:1px solid var(--green)}
   .form-msg.err{display:block;background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid #ef4444}
+  .ty-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px;animation:fadeIn .3s ease}
+  .ty-overlay.show{display:flex}
+  .ty-card{max-width:560px;width:100%;background:linear-gradient(180deg,rgba(34,197,94,.18),var(--card));border:2px solid var(--green);border-radius:24px;padding:48px 32px;text-align:center;box-shadow:0 20px 80px rgba(34,197,94,.4);animation:popIn .45s cubic-bezier(.2,.9,.3,1.3)}
+  .ty-check{width:90px;height:90px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:54px;color:#000;font-weight:900;box-shadow:0 0 40px rgba(34,197,94,.6)}
+  .ty-card h2{font-size:38px;margin-bottom:14px;color:#fff;line-height:1.15}
+  .ty-card p{font-size:17px;color:var(--muted);margin-bottom:8px}
+  .ty-card .ty-sub{font-size:14px;color:var(--green-glow);margin-top:20px;font-weight:600}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes popIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+  @media(max-width:640px){.ty-card h2{font-size:26px}.ty-check{width:72px;height:72px;font-size:42px}.ty-card{padding:36px 22px}}
 
   /* FAQ */
   .faq{max-width:760px;margin:0 auto}
@@ -243,21 +275,36 @@ src="https://www.facebook.com/tr?id=1709795070024305&ev=PageView&noscript=1"/></
 </div>
 
 <!-- PROJECTS -->
-<section>
+<section id="projects">
   <div class="wrap">
     <span class="eyebrow">Our Work</span>
     <h2>Recent <span class="green">Projects</span></h2>
     <p class="lead">Real stores hum ne real clients ke liye banaye — har niche, har budget mein.</p>
-    <div class="projects">
-      <div class="proj"><span class="proj-tag">Fashion</span><div class="proj-ico">👗</div><h3>Luxe Wardrobe</h3><p>Premium women's fashion store with lookbook & size guides.</p><div class="proj-meta"><div><b>7</b> Days</div><div><b>Rs. 9.9k</b></div></div></div>
-      <div class="proj"><span class="proj-tag">Beauty</span><div class="proj-ico">💄</div><h3>Glow Studio</h3><p>Skincare brand with quiz funnel & subscription flow.</p><div class="proj-meta"><div><b>5</b> Days</div><div><b>Rs. 9.9k</b></div></div></div>
-      <div class="proj"><span class="proj-tag">Electronics</span><div class="proj-ico">📱</div><h3>TechHub PK</h3><p>Gadget store with spec comparison & warranty UX.</p><div class="proj-meta"><div><b>6</b> Days</div><div><b>Rs. 24.9k</b></div></div></div>
-      <div class="proj"><span class="proj-tag">Food</span><div class="proj-ico">🍫</div><h3>Sweet Cravings</h3><p>Artisan chocolates with gifting flow & recipe pages.</p><div class="proj-meta"><div><b>4</b> Days</div><div><b>Rs. 9.9k</b></div></div></div>
-      <div class="proj"><span class="proj-tag">Automotive</span><div class="proj-ico">🚗</div><h3>AutoParts Pro</h3><p>Car accessories store with vehicle compatibility filter.</p><div class="proj-meta"><div><b>8</b> Days</div><div><b>Rs. 24.9k</b></div></div></div>
-      <div class="proj"><span class="proj-tag">Dropshipping</span><div class="proj-ico">📦</div><h3>Trendy Goods</h3><p>Winning product store with upsells & urgency timers.</p><div class="proj-meta"><div><b>3</b> Days</div><div><b>Rs. 4.9k</b></div></div></div>
-    </div>
+    <div class="projects" id="projectsGrid"></div>
   </div>
 </section>
+
+<!-- HIGHLY CONVERTING RESULTS -->
+<section id="results" class="process-bg">
+  <div class="wrap">
+    <span class="eyebrow">Proven Results</span>
+    <h2>Highly Converting <span class="green">Campaigns</span></h2>
+    <p class="lead">Real screenshots — real ROAS, real sales, real ads jo perform kar rahi hain.</p>
+    <div class="results" id="resultsGrid"></div>
+  </div>
+</section>
+
+<!-- OFFER TIMER POPUP -->
+<div class="offer-pop" id="offerPop" role="dialog" aria-label="Limited offer">
+  <button class="x" id="offerClose" aria-label="Close">×</button>
+  <h4>🔥 Limited Time Offer!</h4>
+  <p>Aaj order karein aur paayein <b style="color:var(--green-glow)">20% OFF</b> + FREE Logo Design.</p>
+  <div class="offer-clock" id="offerClock">
+    <div><span id="oMin">15</span><small>MIN</small></div>
+    <div><span id="oSec">00</span><small>SEC</small></div>
+  </div>
+  <a href="#lead" class="btn btn-primary" id="offerCta">Claim Offer Now →</a>
+</div>
 
 <!-- PRICING -->
 <section id="pricing" class="process-bg">
@@ -466,37 +513,168 @@ src="https://www.facebook.com/tr?id=1709795070024305&ev=PageView&noscript=1"/></
   </div>
 </footer>
 
-<a href="https://wa.me/923000000000" class="wa" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+<a href="https://wa.me/923088771533" class="wa" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+<div class="ty-overlay" id="tyOverlay" role="dialog" aria-live="polite">
+  <div class="ty-card">
+    <div class="ty-check">✓</div>
+    <h2>Shukriya! 🎉</h2>
+    <p>Aap ki request mil gayi hai.</p>
+    <p>Hum aap ko abhi WhatsApp per redirect kar rahe hain…</p>
+    <div class="ty-sub" id="tyCount">Redirecting in 4 seconds…</div>
+  </div>
+</div>
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  const form = document.getElementById('leadForm');
-  const msg  = document.getElementById('formMsg');
-  const btn  = document.getElementById('submitBtn');
+  /* =========================================================
+     EDIT YOUR IMAGES HERE — bas image link badlein, ho gaya.
+     Image URLs can be: direct .jpg/.png links, Imgur, Google Drive
+     (use direct link), Cloudinary, ya koi bhi public image URL.
+     ========================================================= */
+  const PROJECTS = [
+    { tag:'Fashion',      img:'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=75', title:'Luxe Wardrobe',  desc:"Premium women's fashion store with lookbook & size guides.", days:'7', price:'Rs. 9.9k' },
+    { tag:'Beauty',       img:'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=75', title:'Glow Studio',    desc:'Skincare brand with quiz funnel & subscription flow.',        days:'5', price:'Rs. 9.9k' },
+    { tag:'Electronics',  img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=75', title:'TechHub PK',     desc:'Gadget store with spec comparison & warranty UX.',            days:'6', price:'Rs. 24.9k' },
+    { tag:'Food',         img:'https://images.unsplash.com/photo-1511381939415-e44015466834?w=800&q=75', title:'Sweet Cravings', desc:'Artisan chocolates with gifting flow & recipe pages.',        days:'4', price:'Rs. 9.9k' },
+    { tag:'Automotive',   img:'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=75', title:'AutoParts Pro',  desc:'Car accessories store with vehicle compatibility filter.',    days:'8', price:'Rs. 24.9k' },
+    { tag:'Dropshipping', img:'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=75', title:'Trendy Goods',   desc:'Winning product store with upsells & urgency timers.',        days:'3', price:'Rs. 4.9k' },
+  ];
+
+  const RESULTS = [
+    { badge:'7x ROAS',     img:'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=75', metric:'Rs. 1.2M Sales', label:'Fashion Store · 30 days' },
+    { badge:'5x ROAS',     img:'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&q=75', metric:'Rs. 850K Sales', label:'Beauty Brand · 21 days' },
+    { badge:'12x ROAS',    img:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=75', metric:'Rs. 2.4M Sales', label:'Electronics · 45 days' },
+    { badge:'9x ROAS',     img:'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=75', metric:'Rs. 1.8M Sales', label:'Dropshipping · 30 days' },
+    { badge:'6x ROAS',     img:'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&q=75', metric:'Rs. 950K Sales', label:'Food Brand · 28 days' },
+    { badge:'8x ROAS',     img:'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=75', metric:'Rs. 1.5M Sales', label:'Auto Parts · 35 days' },
+    { badge:'10x ROAS',    img:'https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&q=75', metric:'Rs. 2.0M Sales', label:'Skincare · 40 days' },
+  ];
+
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  // Render projects (lazy loaded images)
+  document.getElementById('projectsGrid').innerHTML = PROJECTS.map(p => `
+    <div class="proj">
+      <span class="proj-tag">${esc(p.tag)}</span>
+      <img class="proj-img" loading="lazy" decoding="async" src="${esc(p.img)}" alt="${esc(p.title)}" onerror="this.style.background='#0a1f12';this.removeAttribute('src')">
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.desc)}</p>
+      <div class="proj-meta"><div><b>${esc(p.days)}</b> Days</div><div><b>${esc(p.price)}</b></div></div>
+    </div>
+  `).join('');
+
+  // Render results (lazy loaded)
+  document.getElementById('resultsGrid').innerHTML = RESULTS.map(r => `
+    <div class="result">
+      <span class="result-badge">${esc(r.badge)}</span>
+      <img loading="lazy" decoding="async" src="${esc(r.img)}" alt="${esc(r.label)}" onerror="this.style.background='#0a1f12';this.removeAttribute('src')">
+      <div class="result-cap"><b>${esc(r.metric)}</b>${esc(r.label)}</div>
+    </div>
+  `).join('');
+
+  /* OFFER TIMER POPUP — triggers when user scrolls past projects */
+  (function(){
+    const pop = document.getElementById('offerPop');
+    const closeBtn = document.getElementById('offerClose');
+    const mEl = document.getElementById('oMin');
+    const sEl = document.getElementById('oSec');
+    const DURATION = 15 * 60; // 15 minutes
+    let shown = false, ticking = null, remaining = DURATION;
+
+    function fmt(n){ return String(n).padStart(2,'0'); }
+    function tick(){
+      if (remaining <= 0){ mEl.textContent='00'; sEl.textContent='00'; clearInterval(ticking); return; }
+      mEl.textContent = fmt(Math.floor(remaining/60));
+      sEl.textContent = fmt(remaining%60);
+      remaining--;
+    }
+    function show(){
+      if (shown || sessionStorage.getItem('offerClosed')) return;
+      shown = true;
+      pop.classList.add('show');
+      tick();
+      ticking = setInterval(tick, 1000);
+    }
+    closeBtn.addEventListener('click', () => {
+      pop.classList.remove('show');
+      sessionStorage.setItem('offerClosed','1');
+      clearInterval(ticking);
+    });
+    // Trigger when projects section bottom is reached
+    const trigger = document.getElementById('projects');
+    if (trigger && 'IntersectionObserver' in window){
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.intersectionRatio < 0.2 && e.boundingClientRect.top < 0) show(); });
+      }, { threshold:[0, 0.2, 1] });
+      io.observe(trigger);
+    } else {
+      window.addEventListener('scroll', () => {
+        if (trigger && trigger.getBoundingClientRect().bottom < 0) show();
+      }, { passive:true });
+    }
+  })();
+
+
+
+  const WHATSAPP_NUMBER = '923088771533'; // 0308-8771533
+  const form    = document.getElementById('leadForm');
+  const msg     = document.getElementById('formMsg');
+  const btn     = document.getElementById('submitBtn');
+  const overlay = document.getElementById('tyOverlay');
+  const countEl = document.getElementById('tyCount');
+
+  function buildWaUrl(data){
+    const lines = [
+      '*🚀 New Lead - The Masked Results*',
+      '',
+      `*Name:* ${data.name || '-'}`,
+      `*Email:* ${data.email || '-'}`,
+      `*WhatsApp:* ${data.whatsapp || '-'}`,
+      `*City:* ${data.city || '-'}`,
+      `*Business:* ${data.business || '-'}`,
+      `*Niche:* ${data.niche || '-'}`,
+      `*Budget:* ${data.budget || '-'}`,
+      `*Timeline:* ${data.timeline || '-'}`,
+      `*Message:* ${data.message || '-'}`
+    ];
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
+  }
+
+  function showThankYouAndRedirect(waUrl){
+    overlay.classList.add('show');
+    let s = 4;
+    countEl.textContent = `Redirecting in ${s} seconds…`;
+    const t = setInterval(()=>{
+      s--;
+      if(s>0){ countEl.textContent = `Redirecting in ${s} seconds…`; }
+      else{
+        clearInterval(t);
+        countEl.textContent = 'Opening WhatsApp…';
+        window.location.href = waUrl;
+      }
+    },1000);
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     btn.disabled = true; btn.textContent = 'Sending…';
     msg.className = 'form-msg'; msg.textContent = '';
 
+    const fd = new FormData(form);
+    const data = Object.fromEntries(fd.entries());
+    const waUrl = buildWaUrl(data);
+
+    // Fire pixel + Web3Forms in background; do NOT block redirect
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method:'POST', body:new FormData(form), headers:{'Accept':'application/json'}
-      });
-      const json = await res.json();
-      if (json.success) {
-        msg.classList.add('ok'); msg.textContent = '✅ Shukriya! Hum 24 hours ke andar contact karenge.';
-        form.reset();
-        if (window.fbq) fbq('track','Lead');
-      } else {
-        msg.classList.add('err'); msg.textContent = '❌ ' + (json.message || 'Kuch ghalat ho gaya.');
-      }
-    } catch(err) {
-      msg.classList.add('err'); msg.textContent = '❌ Network error. Dobara try karein.';
-    } finally {
-      btn.disabled = false; btn.textContent = '📞 Free Consult Book Karein';
-    }
+      if (window.fbq) fbq('track','Lead');
+      fetch('https://api.web3forms.com/submit', {
+        method:'POST', body:fd, headers:{'Accept':'application/json'}
+      }).catch(()=>{});
+    } catch(_){}
+
+    showThankYouAndRedirect(waUrl);
   });
 </script>
 </body>
